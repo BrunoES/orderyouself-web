@@ -99,10 +99,12 @@ const mapStateToProps = state => {
         bebidas[bebidas.length - 1].uid = uid;
     });
 
+    /*
     console.log(pedidosFechados);
     console.log(refeicoes);
     console.log(acompanhamentos);
     console.log(bebidas);
+    */
 
     return { refeicoes, acompanhamentos, bebidas };
 };

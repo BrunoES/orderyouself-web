@@ -12,11 +12,11 @@ const pedidoAtual = "-LRxt3aKlHgsjh0Yfk8M";
 const localId = "14212681-8d62-439a-bb02-b68ba32e21d5";
 
 export function getNumPedidos() {
-    /*const request = axios.get(`${BASE_URL}/billingCycles/summary`)
+    const request = axios.get(`${BASE_URL}/billingCycles/summary`)
     return {
         type: 'BILLING_SUMMARY_FETCHED',
         payload: request
-    }*/
+    }
 }
 
 /*

@@ -17,10 +17,10 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { numRefeicoes, numAcompanhamentos, numBebidas } = this.props.numPedidos
+        const { numRefeicoes, numAcompanhamentos, numBebidas } = this.props;
         return (
             <div> 
-                <ContentHeader title='Dashboard' small='Versão 1.0' />
+                <ContentHeader title='Dashboard de Pedidos - Order YouSelf' small='Versão 1.0' />
                 <Content>
                     <Row> 
                         <ValueBox cols='12 4' color='green' icon='bank'
@@ -37,6 +37,10 @@ class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = state => ({numPedidos: state.dashboard.numPedidos})
-const mapDispatchToProps = dispatch => bindActionCreators({getNumPedidos}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+const mapStateToProps = state => {
+    const { numRefeicoes, numAcompanhamentos, numBebidas } = state.dashboard;
+    return { numRefeicoes, numAcompanhamentos, numBebidas };
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({getNumPedidos}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
