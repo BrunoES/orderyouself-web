@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getListRefeicoes, getListAcompanhamentos, getListBebidas } from './dashboardActions'
+import { getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas } from './dashboardActions'
 
 import _ from 'lodash';
 
 class dashboardList extends Component {
 
     componentWillMount() {
+        this.props.getPedidosFechados();
         this.props.getListRefeicoes();
         this.props.getListAcompanhamentos();
         this.props.getListBebidas();
@@ -25,51 +26,63 @@ class dashboardList extends Component {
 
     render() {
         return (
-            <div>
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>Pratos</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows(this.props.refeicoes)}
-                    </tbody>
-                </table>
+            <div className='row'>
+                <div className='col-xs-4'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Pratos</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows(this.props.refeicoes)}
+                        </tbody>
+                    </table>
+                </div>
 
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>Acompanhamentos</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows(this.props.acompanhamentos)}
-                    </tbody>
-                </table>
+                <div className='col-xs-4'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Acompanhamentos</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows(this.props.acompanhamentos)}
+                        </tbody>
+                    </table>
+                </div>
 
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>Bebidas</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows(this.props.bebidas)}
-                    </tbody>
-                </table>
+                <div className='col-xs-4'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Bebidas</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows(this.props.bebidas)}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
+    const pedidosFechados = new Array();
     const refeicoes = new Array();
     const acompanhamentos = new Array();
     const bebidas = new Array();
+
+    _.map(state.dashboard.pedidosFechados, (val, uid) => {
+        pedidosFechados.push(val);
+        pedidosFechados[pedidosFechados.length - 1].uid = uid;
+    });
 
     _.map(state.dashboard.refeicoes, (val, uid) => {
         refeicoes.push(val);
@@ -86,6 +99,7 @@ const mapStateToProps = state => {
         bebidas[bebidas.length - 1].uid = uid;
     });
 
+    console.log(pedidosFechados);
     console.log(refeicoes);
     console.log(acompanhamentos);
     console.log(bebidas);
@@ -93,5 +107,5 @@ const mapStateToProps = state => {
     return { refeicoes, acompanhamentos, bebidas };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(dashboardList)
