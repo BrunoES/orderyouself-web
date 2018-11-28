@@ -28,6 +28,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "base-64": "^0.1.0",
     "firebase": "^5.5.8",
     "lodash": "^4.17.11"
   }

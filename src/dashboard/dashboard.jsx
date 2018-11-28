@@ -8,6 +8,8 @@ import Content from '../common/template/content'
 import ValueBox from  '../common/widget/valueBox'
 import Row from  '../common/layout/row'
 
+import firebase from 'firebase';
+
 import List from './dashboardList';
 
 class Dashboard extends Component {

@@ -1,33 +1,40 @@
-import '../common/template/dependencies'
-import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import '../common/template/dependencies';
+import React, { Component } from 'react';
+import firebase from 'firebase';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import App from './app'
-import Auth from '../auth/auth'
-import { validateToken } from '../auth/authActions'
+import Dashboard from '../dashboard/dashboard';
+import Auth from '../auth/auth';
+import { validaLogin } from '../auth/authActions';
 
 class AuthOrApp extends Component {
     componentWillMount() {
-        if (this.props.auth.user) {
-            this.props.validateToken(this.props.auth.user.token)
-        }
+        var config = {
+            apiKey: "AIzaSyB81m3WqaqkFQ3zUjAptFg6SGyPje98R98",
+            authDomain: "orderyourself-f4a86.firebaseapp.com",
+            databaseURL: "https://orderyourself-f4a86.firebaseio.com",
+            projectId: "orderyourself-f4a86",
+            storageBucket: "orderyourself-f4a86.appspot.com",
+            messagingSenderId: "469292518877"
+        };
+        firebase.initializeApp(config);
+        this.props.validaLogin()
     }
 
     render() {
-        const { user, validToken } = this.props.auth
-        if (user && validToken) {
-            axios.defaults.headers.common['authorization'] = user.token
-            return <App>{this.props.children}</App>
-        } else if (!user && !validToken) {
-            return <Auth />
+        const { currentUser } = this.props;
+        if (currentUser) {
+            return <Dashboard />
         } else {
-            return false
+            return <Auth />
         }
     }
 }
 
-const mapStateToProps = state => ({ auth: state.auth })
-const mapDispatchToProps = dispatch => bindActionCreators({ validateToken }, dispatch)
+const mapStateToProps = state => {
+    const currentUser = state.auth.currentUser;
+    return { currentUser };
+};
+const mapDispatchToProps = dispatch => bindActionCreators({ validaLogin }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(AuthOrApp)
