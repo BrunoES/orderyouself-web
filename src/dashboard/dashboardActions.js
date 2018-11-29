@@ -8,8 +8,7 @@ const BASE_URL = 'http://localhost:3003/api';
 const INITIAL_VALUES = {credits: [{}], debts: [{}]};
 
 const usuarioLogado = "6abe636d-f47a-415e-9493-ac89db41361f";
-const pedidoAtual = "-LRxt3aKlHgsjh0Yfk8M";
-const localId = "14212681-8d62-439a-bb02-b68ba32e21d5";
+//const localId = firebase.auth().currentUser.uid;
 
 export function getNumPedidos() {
     const request = axios.get(`${BASE_URL}/billingCycles/summary`)
@@ -19,17 +18,7 @@ export function getNumPedidos() {
     }
 }
 
-/*
-export function getList() {
-    const request = axios.get(`${BASE_URL}/billingCycles`)
-    return {
-        type: 'BILLING_CYCLES_FETCHED',
-        payload: request
-    }
-}
-*/
-
-export const getPedidosFechados = () => {
+export const getPedidosFechados = (localId) => {
     return dispatch => {
         firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
             .on("value", snapshot => {
@@ -38,27 +27,27 @@ export const getPedidosFechados = () => {
     };
 }
 
-export const getListRefeicoes = () => {
+export const getListRefeicoes = (localId, pedidoId) => {
     return dispatch => {
-        firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${pedidoAtual}/`)
+        firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${pedidoId}/`)
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_REFEICOES', payload: snapshot.val() });
             })
     }
 }
 
-export const getListAcompanhamentos = () => {
+export const getListAcompanhamentos = (localId, pedidoId) => {
     return dispatch => {
-        firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${pedidoAtual}/`)
+        firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${pedidoId}/`)
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_ACOMPANHAMENTOS', payload: snapshot.val() });
             })
     }
 }
 
-export const getListBebidas = () => {
+export const getListBebidas = (localId, pedidoId) => {
     return dispatch => {
-        firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${pedidoAtual}/`)
+        firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${pedidoId}/`)
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_BEBIDAS', payload: snapshot.val() });
             })

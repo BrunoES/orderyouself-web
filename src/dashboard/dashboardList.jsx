@@ -8,10 +8,15 @@ import _ from 'lodash';
 class dashboardList extends Component {
 
     componentWillMount() {
-        this.props.getPedidosFechados();
-        this.props.getListRefeicoes();
-        this.props.getListAcompanhamentos();
-        this.props.getListBebidas();
+        const prov = "-LSRoC3oriqVs1JsONpJ";
+        this.props.getPedidosFechados(this.props.currentUserUID);
+        this.props.getListRefeicoes(this.props.currentUserUID, prov);
+        this.props.getListAcompanhamentos(this.props.currentUserUID, prov);
+        this.props.getListBebidas(this.props.currentUserUID, prov);
+    }
+
+    componentDidMount() {
+        // TO DO
     }
 
     renderRows(data) {
@@ -78,6 +83,7 @@ const mapStateToProps = state => {
     const refeicoes = new Array();
     const acompanhamentos = new Array();
     const bebidas = new Array();
+    const currentUserUID = state.auth.currentUser.uid;
 
     _.map(state.dashboard.pedidosFechados, (val, uid) => {
         pedidosFechados.push(val);
@@ -99,14 +105,7 @@ const mapStateToProps = state => {
         bebidas[bebidas.length - 1].uid = uid;
     });
 
-    /*
-    console.log(pedidosFechados);
-    console.log(refeicoes);
-    console.log(acompanhamentos);
-    console.log(bebidas);
-    */
-
-    return { refeicoes, acompanhamentos, bebidas };
+    return { refeicoes, acompanhamentos, bebidas, currentUserUID };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)

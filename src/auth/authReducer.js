@@ -36,13 +36,10 @@ export default (state = INITIAL_STATE, action) => {
         case CADASTRO_USUARIO_SUCESSO:
             return { ...state, nome: '', senha: '', loading_cadastro: false };
         case LOGIN_USUARIO_ERRO:
-            console.log(action + " LOGIN_EM_ANDAMENTO");
             return { ...state, erroLogin: action.payload, loading_login: false };
         case LOGIN_USUARIO_SUCESSO:
-            console.log(action + " LOGIN_USUARIO_SUCESSO");
             return { ...state, currentUser: state.email };
         case LOGIN_EM_ANDAMENTO:
-            console.log(action + " LOGIN_EM_ANDAMENTO");
             return { ...state, loading_login: true };
         case LOGOUT_EM_ANDAMENTO:
             return { ...state, loading_login: true };

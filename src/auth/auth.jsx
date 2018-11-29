@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { autenticarUsuario, cadastraUsuario, modificaEmail, modificaSenha } from './authActions'
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
+import Dashboard from '../dashboard/dashboard';
 
 class Auth extends Component {
 
@@ -33,9 +34,7 @@ class Auth extends Component {
 
     render() {
         const { erroLogin, currentUser } = this.props;
-        console.log(erroLogin + " erroLogin");
-        console.log(currentUser + " currentUser");
-        if(!currentUser) {
+        if(!currentUser){
             return (
                 <div style={{ flex: 1, padding: 10 }} >
                     <div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -67,14 +66,14 @@ class Auth extends Component {
                 </div>
             );
         } else {
-            return <Redirect to='/' />
+            return <Dashboard />
         }
     }
 }
 
 const mapStateToProps = state => {
     const { email, senha, currentUser, erroLogin, loading_login } = state.auth;
-    
+
     return { email, senha, currentUser, erroLogin, loading_login };
 }
 

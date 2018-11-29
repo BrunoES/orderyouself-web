@@ -37,9 +37,15 @@ export const modificaNome = (texto) => {
 }
 
 export const validaLogin = () => {
-    return {
-        type: CURRENT_USER,
-        payload: firebase.auth().currentUser
+    return dispatch => {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                dispatch({
+                    type: CURRENT_USER,
+                    payload: user
+                });
+            }
+        });
     }
 }
 

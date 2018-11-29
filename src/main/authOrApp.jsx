@@ -23,12 +23,20 @@ class AuthOrApp extends Component {
     }
 
     render() {
+        
         const { currentUser } = this.props;
-        if (currentUser) {
-            return <Dashboard />
-        } else {
+
+        return <Auth />
+
+        /*
+        console.log(currentUser)
+
+        if(typeof currentUser === "undefined"){
             return <Auth />
+        } else {
+            return <Dashboard />
         }
+        */
     }
 }
 

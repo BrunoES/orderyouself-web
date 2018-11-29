@@ -9,10 +9,13 @@ export default function(state = INITIAL_STATE, action) {
         case 'PEDIDOS_FECHADOS':
             return { ...state, pedidosFechados: action.payload };
         case 'LISTA_REFEICOES':
+            console.log(action.payload);
             return { ...state, refeicoes: action.payload, numRefeicoes: _.values(action.payload).length };
         case 'LISTA_ACOMPANHAMENTOS':
+            console.log(action.payload);
             return { ...state, acompanhamentos: action.payload, numAcompanhamentos: _.values(action.payload).length };
         case 'LISTA_BEBIDAS':
+            console.log(action.payload);
             return { ...state, bebidas: action.payload, numBebidas: _.values(action.payload).length };
         default:
             return state;
