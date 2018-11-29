@@ -4,11 +4,12 @@ import { toastr } from 'react-redux-toastr';
 import { reset as resetForm, initialize } from 'redux-form';
 import { showTabs, selectTab } from '../common/tab/tabActions';
 
+import _ from 'lodash';
+
 const BASE_URL = 'http://localhost:3003/api';
 const INITIAL_VALUES = {credits: [{}], debts: [{}]};
 
 const usuarioLogado = "6abe636d-f47a-415e-9493-ac89db41361f";
-//const localId = firebase.auth().currentUser.uid;
 
 export function getNumPedidos() {
     const request = axios.get(`${BASE_URL}/billingCycles/summary`)
@@ -51,6 +52,28 @@ export const getListBebidas = (localId, pedidoId) => {
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_BEBIDAS', payload: snapshot.val() });
             })
+    }
+}
+
+export const getListaDePedidos = (localId) => {
+    return dispatch => {
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
+            .on("value", snapshot => {
+                _.map(snapshot.val(), (val, uid) => {
+                    firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
+                        .on("value", snapshot => {
+                            dispatch({ type: 'LISTA_REFEICOES', payload: snapshot.val() });
+                        })
+                    firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .on("value", snapshot => {
+                            dispatch({ type: 'LISTA_ACOMPANHAMENTOS', payload: snapshot.val() });
+                        })
+                    firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .on("value", snapshot => {
+                            dispatch({ type: 'LISTA_BEBIDAS', payload: snapshot.val() });
+                        })
+                });
+            });
     }
 }
 

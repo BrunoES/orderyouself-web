@@ -13,7 +13,6 @@ import AuthOrApp from './main/authOrApp'
 //import Dashboard from './dashboard/dashboard';
 //import './common/template/dependencies';
 import reducers from './main/reducers';
-import authOrApp from './main/authOrApp';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ 
       && window.__REDUX_DEVTOOLS_EXTENSION__()

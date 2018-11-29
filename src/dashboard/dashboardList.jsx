@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas } from './dashboardActions'
+import { getListaDePedidos, getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas } from './dashboardActions'
 
 import _ from 'lodash';
 
 class dashboardList extends Component {
 
     componentWillMount() {
-        const prov = "-LSRoC3oriqVs1JsONpJ";
-        this.props.getPedidosFechados(this.props.currentUserUID);
-        this.props.getListRefeicoes(this.props.currentUserUID, prov);
-        this.props.getListAcompanhamentos(this.props.currentUserUID, prov);
-        this.props.getListBebidas(this.props.currentUserUID, prov);
+        this.props.getListaDePedidos(this.props.currentUserUID);
+        //this.props.getPedidosFechados(this.props.currentUserUID);
+        //this.props.getListRefeicoes(this.props.currentUserUID, prov);
+        //this.props.getListAcompanhamentos(this.props.currentUserUID, prov);
+        //this.props.getListBebidas(this.props.currentUserUID, prov);
     }
 
     componentDidMount() {
@@ -108,5 +108,5 @@ const mapStateToProps = state => {
     return { refeicoes, acompanhamentos, bebidas, currentUserUID };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ getListaDePedidos, getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(dashboardList)
