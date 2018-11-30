@@ -104,7 +104,7 @@ const mapStateToProps = state => {
         bebidas.push(val);
         bebidas[bebidas.length - 1].uid = uid;
     });
-
+    
     return { refeicoes, acompanhamentos, bebidas, currentUserUID };
 };
 

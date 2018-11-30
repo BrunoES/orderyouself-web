@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
-const INITIAL_STATE = { numRefeicoes: 0, numAcompanhamentos: 0, numBebidas: 0, pedidosFechados: { }, refeicoes: { }, acompanhamentos: { }, bebidas: { } };
+const INITIAL_STATE = { numRefeicoes: 0, numAcompanhamentos: 0, numBebidas: 0, pedidosFechados: { }, refeicoes: [{ }], acompanhamentos: [{ }], bebidas: [{ }] };
+
+let itemTemp = new Array();
 
 export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -9,11 +11,26 @@ export default function(state = INITIAL_STATE, action) {
         case 'PEDIDOS_FECHADOS':
             return { ...state, pedidosFechados: action.payload };
         case 'LISTA_REFEICOES':
-            return { ...state, refeicoes: action.payload, numRefeicoes: _.values(action.payload).length };
+            itemTemp = state.refeicoes.slice();
+            _.map(action.payload, (val, uid) => {
+                itemTemp.push(val);
+                itemTemp[itemTemp.length - 1].uid = uid;
+            });
+            return { ...state, refeicoes: itemTemp, numRefeicoes: _.values(action.payload).length };
         case 'LISTA_ACOMPANHAMENTOS':
-            return { ...state, acompanhamentos: action.payload, numAcompanhamentos: _.values(action.payload).length };
+            itemTemp = state.acompanhamentos.slice();
+            _.map(action.payload, (val, uid) => {
+                itemTemp.push(val);
+                itemTemp[itemTemp.length - 1].uid = uid;
+            });
+            return { ...state, acompanhamentos: itemTemp, numAcompanhamentos: _.values(action.payload).length };
         case 'LISTA_BEBIDAS':
-            return { ...state, bebidas: action.payload, numBebidas: _.values(action.payload).length };
+            itemTemp = state.bebidas.slice();
+            _.map(action.payload, (val, uid) => {
+                itemTemp.push(val);
+                itemTemp[itemTemp.length - 1].uid = uid;
+            });
+            return { ...state, bebidas: itemTemp, numBebidas: _.values(action.payload).length };
         default:
             return state;
     }
