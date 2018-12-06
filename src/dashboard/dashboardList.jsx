@@ -24,6 +24,7 @@ class dashboardList extends Component {
         return list.map(item => (
             <tr key={item.uid}>
                 <td>{item.desc}</td>
+                <td>{`Mesa ${item.numMesa}`}</td>
                 <td>{item.quantidade}</td>
             </tr>
         ))
@@ -37,6 +38,7 @@ class dashboardList extends Component {
                         <thead>
                             <tr>
                                 <th>Pratos</th>
+                                <th>Mesa</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -51,6 +53,7 @@ class dashboardList extends Component {
                         <thead>
                             <tr>
                                 <th>Acompanhamentos</th>
+                                <th>Mesa</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -65,6 +68,7 @@ class dashboardList extends Component {
                         <thead>
                             <tr>
                                 <th>Bebidas</th>
+                                <th>Mesa</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -91,20 +95,28 @@ const mapStateToProps = state => {
     });
 
     _.map(state.dashboard.refeicoes, (val, uid) => {
-        refeicoes.push(val);
-        refeicoes[refeicoes.length - 1].uid = uid;
+        if(uid > 0){
+            refeicoes.push(val);
+            refeicoes[refeicoes.length - 1].uid = uid;
+        }
     });
 
     _.map(state.dashboard.acompanhamentos, (val, uid) => {
-        acompanhamentos.push(val);
-        acompanhamentos[acompanhamentos.length - 1].uid = uid;
+        if(uid > 0){
+            acompanhamentos.push(val);
+            acompanhamentos[acompanhamentos.length - 1].uid = uid;
+        }
     });
 
     _.map(state.dashboard.bebidas, (val, uid) => {
-        bebidas.push(val);
-        bebidas[bebidas.length - 1].uid = uid;
+        if(uid > 0){
+            bebidas.push(val);
+            bebidas[bebidas.length - 1].uid = uid;
+        }
     });
-    
+
+    //console.log(refeicoes);
+
     return { refeicoes, acompanhamentos, bebidas, currentUserUID };
 };
 
