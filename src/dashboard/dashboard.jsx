@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNumPedidos } from './dashboardActions';
+import { getNumPedidos } from './DashboardActions';
 import ContentHeader from '../common/template/contentHeader';
 import Content from '../common/template/content';
 import ValueBox from  '../common/widget/valueBox';
 import Row from  '../common/layout/row';
 
-import List from './dashboardList';
+import List from './DashboardList';
 
 class Dashboard extends Component {
 

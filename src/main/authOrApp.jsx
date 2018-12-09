@@ -4,9 +4,11 @@ import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Dashboard from '../dashboard/dashboard';
-import Auth from '../auth/auth';
-import { validaLogin } from '../auth/authActions';
+import Auth from '../auth/Auth';
+
+import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
+
+import { validaLogin } from '../auth/AuthActions';
 
 class AuthOrApp extends Component {
     componentWillMount() {
@@ -26,7 +28,8 @@ class AuthOrApp extends Component {
         
         const { currentUser } = this.props;
 
-        return <Auth />
+        //return <Auth />
+        return <CategoriaPratos />
 
         /*
         console.log(currentUser)

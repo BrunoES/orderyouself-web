@@ -8,7 +8,8 @@ import promise from 'redux-promise';
 import multi from 'redux-multi';
 import thunk from 'redux-thunk';
 
-import AuthOrApp from './main/authOrApp'
+import AuthOrApp from './main/AuthOrApp'
+
 //import Auth from './auth/auth';
 //import Dashboard from './dashboard/dashboard';
 //import './common/template/dependencies';

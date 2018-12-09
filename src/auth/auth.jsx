@@ -2,9 +2,9 @@ import './auth.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { autenticarUsuario, cadastraUsuario, modificaEmail, modificaSenha } from './authActions'
-import { Redirect } from 'react-router-dom';
-import Dashboard from '../dashboard/dashboard';
+import { autenticarUsuario, cadastraUsuario, modificaEmail, modificaSenha } from './AuthActions'
+import Dashboard from '../dashboard/Dashboard';
+import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
 
 class Auth extends Component {
 
@@ -67,6 +67,7 @@ class Auth extends Component {
             );
         } else {
             return <Dashboard />
+            //return <CategoriaPratos />
         }
     }
 }
