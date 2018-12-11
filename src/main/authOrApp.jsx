@@ -8,6 +8,8 @@ import Auth from '../auth/Auth';
 
 import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
 
+import Pratos from '../cadastros/pratos/itens/Pratos';
+
 import { validaLogin } from '../auth/AuthActions';
 
 class AuthOrApp extends Component {
@@ -29,7 +31,8 @@ class AuthOrApp extends Component {
         const { currentUser } = this.props;
 
         //return <Auth />
-        return <CategoriaPratos />
+        //return <CategoriaPratos />
+        return <Pratos />
 
         /*
         console.log(currentUser)

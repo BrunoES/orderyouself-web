@@ -14,23 +14,18 @@ export default function(state = INITIAL_STATE, action) {
             itemTemp = state.refeicoes.slice();
             _.map(action.payload, (val, uid) => {
                 itemTemp.push(val);
-                console.log(itemTemp);
-                //itemTemp[itemTemp.length - 1].uid = uid;
-                console.log(itemTemp);
             });
             return { ...state, refeicoes: itemTemp, numRefeicoes: _.values(action.payload).length };
         case 'LISTA_ACOMPANHAMENTOS':
             itemTemp = state.acompanhamentos.slice();
             _.map(action.payload, (val, uid) => {
                 itemTemp.push(val);
-                //itemTemp[itemTemp.length - 1].uid = uid;
             });
             return { ...state, acompanhamentos: itemTemp, numAcompanhamentos: _.values(action.payload).length };
         case 'LISTA_BEBIDAS':
             itemTemp = state.bebidas.slice();
             _.map(action.payload, (val, uid) => {
                 itemTemp.push(val);
-                //itemTemp[itemTemp.length - 1].uid = uid;
             });
             return { ...state, bebidas: itemTemp, numBebidas: _.values(action.payload).length };
         default:

@@ -2,14 +2,12 @@ import axios from 'axios';
 
 import firebase from 'firebase';
 
-const URL = 'http://localhost:3003/api/todos';
-
 const localId = 'NMajCK3oEvhj2XhyCzbf2bxj73H3';
 
-export const modificaDescricao = (event) => {
-    console.log("Modificando categoria: " + event.target.value);
+export const modificaDescricao = (descricao) => {
+    console.log("Modificando categoria: " + descricao);
     return dispatch => {
-        dispatch({ type: 'MODIFICA_DESCRICAO', payload: event.target.value });
+        dispatch({ type: 'MODIFICA_DESCRICAO', payload: descricao });
     }
 };
 
@@ -30,7 +28,10 @@ export const adicionarCategoria = (novaCategoria) => {
 
 export const buscarCategorias = () => {
     return dispatch => {
-        dispatch({ type: 'teste', payload: { } });
+        firebase.database().ref(`/categoriasPratos/${localId}/`)
+            .on("value", snapshot => {
+                dispatch({ type: 'LISTA_CATEGORIAS', payload: snapshot.val() });
+            });
     }
 };
 

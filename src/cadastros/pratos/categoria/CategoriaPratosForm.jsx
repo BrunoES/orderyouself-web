@@ -92,11 +92,11 @@ class CategoriaPratosForm extends Component {
     }
 
     _modificaDescricao(e) {
-        this.props.modificaDescricao(e);
+        this.props.modificaDescricao(e.target.value);
     }
 
     _buscarCategorias() {
-        console.log("Buscando Categoria")
+        console.log("Buscando Categorias")
     }
 
     _limparCategoria() {
