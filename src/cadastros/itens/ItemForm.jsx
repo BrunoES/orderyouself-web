@@ -3,12 +3,12 @@ import React, { Component, Select } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { adicionarPrato, modificaDescricao, modificaCategoria, buscarPratos, limparPrato } from './PratosActions';
-import { buscarCategorias } from '../categoria/CategoriaPratosActions';
+import { adicionarPrato, modificaDescricao, modificaCategoria, buscarPratos, limparPrato } from './ItemActions';
+import { buscarCategorias } from '../categorias/CategoriaActions';
 
 import _ from 'lodash';
 
-class PratosForm extends Component {
+class ItemForm extends Component {
 
     constructor(props) {
         super(props);
@@ -17,22 +17,14 @@ class PratosForm extends Component {
 
     componentWillMount() {
         //this.props.buscarPratos();
-        this.props.buscarCategorias();
+        this.props.buscarCategorias(this.props.tipoCategoria);
     }
 
     keyHandler(e) {
-        /*
-        const { adicionarPrato, buscarPratos, description } = this.props;
-        if (e.key === 'Enter') {
-            e.shiftKey ? buscarPratos() : adicionarPrato(description)
-        } else if (e.key === 'Escape') {
-            this.props.limpar()
-        }
-        */
     }
 
     _adicionarPrato() {
-        this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.categoriaId );
+        this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.categoriaId, this.props.tipoItem );
     }
 
     _modificaDescricao(e) {
@@ -53,8 +45,9 @@ class PratosForm extends Component {
 
     _getOptionsFromCategorias() {
         let arrayOptions = new Array();
+        arrayOptions.push(<option key={''} value={''} defaultValue>{'Selecione uma Categoria'}</option>);
         _.map(this.props.categorias, (val, uid) => {
-            arrayOptions.push(<option key={uid} value={uid} defaultValue>{val.desc}</option>);
+            arrayOptions.push(<option key={uid} value={uid}>{val.desc}</option>);
         })
         return arrayOptions;
     }
@@ -84,13 +77,13 @@ class PratosForm extends Component {
 }
 
 const mapStateToProps = state => {
-    const descricao = state.pratos.descricao;
-    const categoriaId = state.pratos.categoriaId;
-    const categorias = state.categoriaPratos.list;
+    const descricao = state.item.descricao;
+    const categoriaId = state.item.categoriaId;
+    const categorias = state.categoria.list;
 
     return { descricao, categoriaId, categorias };
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({ adicionarPrato, modificaDescricao, modificaCategoria, buscarCategorias, buscarPratos, limparPrato }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PratosForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemForm);

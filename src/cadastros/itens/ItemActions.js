@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import firebase from 'firebase';
 
 const localId = 'NMajCK3oEvhj2XhyCzbf2bxj73H3';
@@ -19,16 +17,16 @@ export const modificaCategoria = (categoriaId) => {
     }
 };
 
-export const adicionarPrato = (novoPrato, categoriaId) => {
+export const adicionarPrato = (novoPrato, categoriaId, tipoItem) => {
     return dispatch => {
-        firebase.database().ref(`/pratos/${localId}/${categoriaId}/`)
+        firebase.database().ref(`/${tipoItem}/${localId}/${categoriaId}/`)
             .push(novoPrato)
             .then(() => dispatch({
-                type: 'ADICIONA_PRATO',
+                type: 'ADICIONA_ITEM',
                 payload: novoPrato
             }))
             .catch((erro) => dispatch({
-                type: 'ADICIONA_PRATO',
+                type: 'ADICIONA_ITEM',
                 payload: ''
             }))
     };

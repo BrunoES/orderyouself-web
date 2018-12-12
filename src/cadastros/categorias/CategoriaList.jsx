@@ -50,13 +50,13 @@ const mapDispatchToProps = dispatch => bindActionCreators({ markAsDone, markAsPe
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriaPratosList);
 */
 
-class CategoriaPratosList extends Component {
+class CategoriaList extends Component {
 
     render() {
         return (
-            <div></div>
+            <div>Listagem da categoria de {this.props.label}</div>
         );
     }
 }
 
-export default CategoriaPratosList;
+export default CategoriaList;

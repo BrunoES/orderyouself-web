@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { autenticarUsuario, cadastraUsuario, modificaEmail, modificaSenha } from './AuthActions'
 import Dashboard from '../dashboard/Dashboard';
-import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
+import CategoriaPratos from '../cadastros/categorias/pratos/CategoriaPratos';
 
 class Auth extends Component {
 

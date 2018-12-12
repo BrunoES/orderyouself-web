@@ -6,9 +6,13 @@ import { bindActionCreators } from 'redux';
 
 import Auth from '../auth/Auth';
 
-import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
+import CategoriaPratos from '../cadastros/categorias/pratos/CategoriaPratos';
+import CategoriaAcompanhamentos from '../cadastros/categorias/acompanhamentos/CategoriaAcompanhamentos';
+import CategoriaBebidas from '../cadastros/categorias/bebidas/CategoriaBebidas';
 
-import Pratos from '../cadastros/pratos/itens/Pratos';
+import Prato from '../cadastros/itens/pratos/Prato';
+import Acompanhamento from '../cadastros/itens/acompanhamentos/Acompanhamento'
+import Bebida from '../cadastros/itens/bebidas/Bebida';
 
 import { validaLogin } from '../auth/AuthActions';
 
@@ -31,8 +35,14 @@ class AuthOrApp extends Component {
         const { currentUser } = this.props;
 
         //return <Auth />
+        
         //return <CategoriaPratos />
-        return <Pratos />
+        //return <CategoriaAcompanhamentos />
+        //return <CategoriaBebidas />
+
+        //return <Prato />
+        //return <Acompanhamento />
+        return <Bebida />
 
         /*
         console.log(currentUser)

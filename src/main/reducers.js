@@ -5,8 +5,8 @@ import { reducer as toastrReducer } from 'react-redux-toastr';
 import DashboardReducer from '../dashboard/DashboardReducer';
 import TabReducer from '../common/tab/tabReducer';
 import AuthReducer from '../auth/AuthReducer';
-import CategoriaPratosReducer from '../cadastros/pratos/categoria/CategoriaPratosReducer';
-import  PratosReducer from '../cadastros/pratos/itens/PratosReducer';
+import ItemReducer from '../cadastros/itens/ItemReducer';
+import CategoriaReducer from '../cadastros/categorias/CategoriaReducer';
 
 const rootReducer = combineReducers({
     dashboard: DashboardReducer,
@@ -14,8 +14,8 @@ const rootReducer = combineReducers({
     form: formReducer,
     toastr: toastrReducer,
     auth: AuthReducer,
-    categoriaPratos: CategoriaPratosReducer,
-    pratos: PratosReducer
+    item: ItemReducer,
+    categoria: CategoriaReducer
 })
 
 export default rootReducer;
