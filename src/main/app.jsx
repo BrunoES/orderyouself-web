@@ -11,11 +11,8 @@ import Routes from './routes';
 export default props => (
     <HashRouter>
         <div className='wrapper'>
-            <Header />
             <SideBar />
             <Routes />
-            <Footer />
-            <Messages />
         </div>
     </HashRouter>
 )

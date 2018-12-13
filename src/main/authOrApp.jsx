@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import Auth from '../auth/Auth';
 
+import App from './app';
+
 import CategoriaPratos from '../cadastros/categorias/pratos/CategoriaPratos';
 import CategoriaAcompanhamentos from '../cadastros/categorias/acompanhamentos/CategoriaAcompanhamentos';
 import CategoriaBebidas from '../cadastros/categorias/bebidas/CategoriaBebidas';
@@ -13,6 +15,8 @@ import CategoriaBebidas from '../cadastros/categorias/bebidas/CategoriaBebidas';
 import Prato from '../cadastros/itens/pratos/Prato';
 import Acompanhamento from '../cadastros/itens/acompanhamentos/Acompanhamento'
 import Bebida from '../cadastros/itens/bebidas/Bebida';
+
+import SideBar from '../common/template/sideBar';
 
 import { validaLogin } from '../auth/AuthActions';
 
@@ -34,25 +38,28 @@ class AuthOrApp extends Component {
         
         const { currentUser } = this.props;
 
-        //return <Auth />
-        
-        //return <CategoriaPratos />
-        //return <CategoriaAcompanhamentos />
-        //return <CategoriaBebidas />
+        return (
+            <div>
+                <App>{this.props.children}</App>
+            </div>
+            //return <CategoriaPratos />
+            //return <CategoriaAcompanhamentos />
+            //return <CategoriaBebidas />
 
-        //return <Prato />
-        //return <Acompanhamento />
-        return <Bebida />
+            //return <Prato />
+            //return <Acompanhamento />
+            //return <Bebida />
 
-        /*
-        console.log(currentUser)
+            /*
+            console.log(currentUser)
 
-        if(typeof currentUser === "undefined"){
-            return <Auth />
-        } else {
-            return <Dashboard />
-        }
-        */
+            if(typeof currentUser === "undefined"){
+                return <Auth />
+            } else {
+                return <Dashboard />
+            }
+            */
+        );
     }
 }
 

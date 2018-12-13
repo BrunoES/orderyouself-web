@@ -1,14 +1,26 @@
-import React from 'react'
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router'
 
-import Dashboard from '../dashboard/dashboard'
-import CategoriaPratos from '../cadastros/pratos/categoria/CategoriaPratos';
+import Dashboard from '../dashboard/Dashboard'
+
+import CategoriaPratos from '../cadastros/categorias/pratos/CategoriaPratos';
+import CategoriaAcompanhamentos from '../cadastros/categorias/acompanhamentos/CategoriaAcompanhamentos';
+import CategoriaBebidas from '../cadastros/categorias/bebidas/CategoriaBebidas';
+
+import Prato from '../cadastros/itens/pratos/Prato';
+import Acompanhamento from '../cadastros/itens/acompanhamentos/Acompanhamento';
+import Bebida from '../cadastros/itens/bebidas/Bebida';
 
 export default props => (
     <div className='content-wrapper'>
         <Switch>
             <Route exact path='/' component={Dashboard} />
-            <Route exact path='/CategoriaPratos' component={CategoriaPratos} />
+            <Route path='/categoriaPratos' component={CategoriaPratos} />
+            <Route path='/categoriaAcompanhamentos' component={CategoriaAcompanhamentos} />
+            <Route path='/categoriaBebidas' component={CategoriaBebidas} />
+            <Route path='/prato' component={Prato} />
+            <Route path='/acompanhamento' component={Acompanhamento} />
+            <Route path='/bebida' component={Bebida} />
             <Redirect from='*' to='/' />
         </Switch>
     </div>

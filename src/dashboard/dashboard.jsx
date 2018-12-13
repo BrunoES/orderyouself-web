@@ -19,7 +19,7 @@ class Dashboard extends Component {
     render() {
         const { numRefeicoes, numAcompanhamentos, numBebidas } = this.props;
         return (
-            <div> 
+            <div>
                 <ContentHeader title='Dashboard de Pedidos - Order YouSelf' small='Versão 1.0' />
                 <Content>
                     <Row> 
