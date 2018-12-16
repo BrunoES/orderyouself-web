@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getNumPedidos } from './DashboardActions';
+import { limparDashboard, getNumPedidos } from './DashboardActions';
 import ContentHeader from '../common/template/contentHeader';
 import Content from '../common/template/content';
 import ValueBox from  '../common/widget/valueBox';
@@ -13,7 +13,7 @@ import List from './DashboardList';
 class Dashboard extends Component {
 
     componentWillMount() {
-        //this.props.getNumPedidos()
+        this.props.limparDashboard()
     }
 
     render() {
@@ -42,5 +42,5 @@ const mapStateToProps = state => {
     return { numRefeicoes, numAcompanhamentos, numBebidas };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({getNumPedidos}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ limparDashboard, getNumPedidos }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

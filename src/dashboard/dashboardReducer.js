@@ -10,6 +10,8 @@ export default function(state = INITIAL_STATE, action) {
             return { ...state, numPedidos: action.payload.data };
         case 'PEDIDOS_FECHADOS':
             return { ...state, pedidosFechados: action.payload };
+        case 'LIMPA_DASHBOARD':
+            return { ...state, pedidosFechados: { }, refeicoes: [{ }], acompanhamentos: [{ }], bebidas: [{ }] };
         case 'LISTA_REFEICOES':
             itemTemp = state.refeicoes.slice();
             _.map(action.payload, (val, uid) => {

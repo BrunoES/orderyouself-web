@@ -19,6 +19,13 @@ export function getNumPedidos() {
     }
 }
 
+export function limparDashboard() {
+    return {
+        type: 'LIMPA_DASHBOARD',
+        payload: ''
+    };
+}
+
 export const getPedidosFechados = (localId) => {
     return dispatch => {
         firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
