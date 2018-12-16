@@ -1,62 +1,65 @@
 import React, { Component } from 'react'
 
-/*
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { buscarCategorias } from './CategoriaActions'
 
-import IconButton from '../template/iconButton'
-import { markAsDone, markAsPending, remove } from './CategoriaPratosActions';
+import _ from 'lodash';
 
-const CategoriaPratosList = props => {
+class CategoriaList extends Component {
 
-    const renderRows = () => {
-        const list = props.list || []
-        return list.map(todo => (
-            <tr key={todo._id}>
-                <td className={todo.done ? 'markedAsDone' : ''}>{todo.description}</td>
-                <td>
-                    <IconButton style='success' icon='check' hide={todo.done}
-                        onClick={() => props.markAsDone(todo)}></IconButton>
-                    <IconButton style='warning' icon='undo' hide={!todo.done} 
-                        onClick={() => props.markAsPending(todo)}></IconButton>
-                    <IconButton style='danger' icon='trash-o' hide={!todo.done} 
-                        onClick={() => props.remove(todo)}></IconButton>
-                </td>
+    componentWillMount() {
+        this.props.buscarCategorias(this.props.tipoCategoria);
+    }
+
+    renderRows(data) {
+        const list = data || []
+        return list.map(item => (
+            <tr key={item.uid}>
+                <td>{item.uid}</td>
+                <td>{item.desc}</td>
+                <td>{'Ativo'}</td>
             </tr>
         ))
     }
 
-    return (
-        <table className='table'>
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th className='tableActions'>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {renderRows()}
-            </tbody>
-        </table>
-    )
+    render() {
+        return (
+            <div>
+                <div>Listagem da categoria de {this.props.label}</div>
+
+                <div className='row'>
+                    <div className='col-xs-12'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>UID</th>
+                                    <th>Descrição</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderRows(this.props.categorias)}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
 }
 
 const mapStateToProps = state => {
-    return ({ list: state.todo.list });
+    const categorias = new Array();
+
+    _.map(state.categoria.list, (val, uid) => {
+        categorias.push(val);
+        categorias[categorias.length - 1].uid = uid;
+    });
+
+    return { categorias };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ markAsDone, markAsPending, remove }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriaPratosList);
-*/
-
-class CategoriaList extends Component {
-
-    render() {
-        return (
-            <div>Listagem da categoria de {this.props.label}</div>
-        );
-    }
-}
-
-export default CategoriaList;
+const mapDispatchToProps = dispatch => bindActionCreators({ buscarCategorias }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriaList);

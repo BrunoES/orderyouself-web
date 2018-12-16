@@ -6,6 +6,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, descricao: action.payload };
         case 'MODIFICA_CATEGORIA':
             return { ...state, categoriaId: action.payload };
+        case 'LISTA_ITENS':
+            return { ...state, list: action.payload };
         case 'ADICIONA_ITEM':
             return { ...state, descricao: action.payload };
         default:

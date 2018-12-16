@@ -32,11 +32,22 @@ export const adicionarPrato = (novoPrato, categoriaId, tipoItem) => {
     };
 }
 
+export const buscarItens = (categoriaId, tipoItem) => {
+    return dispatch => {
+        firebase.database().ref(`/${tipoItem}/${localId}/${categoriaId}/`)
+            .on("value", snapshot => {
+                dispatch({ type: 'LISTA_ITENS', payload: snapshot.val() });
+            });
+    }
+};
+
+/*
 export const buscarPratos = () => {
     return dispatch => {
         dispatch({ type: 'teste', payload: { } });
     }
 };
+*/
 
 export const limparPrato = () => {
     return dispatch => {

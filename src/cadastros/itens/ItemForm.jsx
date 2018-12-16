@@ -3,7 +3,7 @@ import React, { Component, Select } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { adicionarPrato, modificaDescricao, modificaCategoria, buscarPratos, limparPrato } from './ItemActions';
+import { adicionarPrato, modificaDescricao, modificaCategoria, buscarItens, limparPrato } from './ItemActions';
 import { buscarCategorias } from '../categorias/CategoriaActions';
 
 import _ from 'lodash';
@@ -16,7 +16,7 @@ class ItemForm extends Component {
     }
 
     componentWillMount() {
-        //this.props.buscarPratos();
+        //this.props.buscarItens();
         this.props.buscarCategorias(this.props.tipoCategoria);
     }
 
@@ -35,7 +35,7 @@ class ItemForm extends Component {
         this.props.modificaCategoria(e.target.value);
     }
 
-    _buscarPratos() {
+    _buscarItens() {
         console.log("Buscando Pratos")
     }
 
@@ -68,7 +68,7 @@ class ItemForm extends Component {
                 </div>
                 <div>
                     <button onClick={() => this._adicionarPrato()}>Adicionar</button>
-                    <button onClick={() => this._buscarPratos()}>Buscar</button>
+                    <button onClick={() => this._buscarItens()}>Buscar</button>
                     <button onClick={() => this._limparPrato()}>Limpar</button>
                 </div>
             </div>
@@ -84,6 +84,6 @@ const mapStateToProps = state => {
     return { descricao, categoriaId, categorias };
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ adicionarPrato, modificaDescricao, modificaCategoria, buscarCategorias, buscarPratos, limparPrato }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ adicionarPrato, modificaDescricao, modificaCategoria, buscarCategorias, buscarItens, limparPrato }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemForm);
