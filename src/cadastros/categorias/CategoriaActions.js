@@ -26,9 +26,9 @@ export const adicionarCategoria = (novaCategoria, tipoCategoria) => {
     };
 }
 
-export const buscarCategorias = (tipoCategoria) => {
+export const buscarCategorias = (tipoCategoria, queryText) => {
     return dispatch => {
-        firebase.database().ref(`/${tipoCategoria}/${localId}/`)
+        firebase.database().ref(`/${tipoCategoria}/${localId}/`).orderByChild('desc').startAt(queryText).endAt(queryText + "\uf8ff")
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_CATEGORIAS', payload: snapshot.val() });
             });

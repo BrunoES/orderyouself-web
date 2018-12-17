@@ -32,9 +32,9 @@ export const adicionarPrato = (novoPrato, categoriaId, tipoItem) => {
     };
 }
 
-export const buscarItens = (categoriaId, tipoItem) => {
+export const buscarItens = (categoriaId, tipoItem, queryText) => {
     return dispatch => {
-        firebase.database().ref(`/${tipoItem}/${localId}/${categoriaId}/`)
+        firebase.database().ref(`/${tipoItem}/${localId}/${categoriaId}/`).orderByChild('desc').startAt(queryText).endAt(queryText + "\uf8ff")
             .on("value", snapshot => {
                 dispatch({ type: 'LISTA_ITENS', payload: snapshot.val() });
             });

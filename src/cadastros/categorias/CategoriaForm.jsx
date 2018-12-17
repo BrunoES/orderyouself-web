@@ -28,7 +28,7 @@ class CategoriaForm extends Component {
     }
 
     _buscarCategorias() {
-        console.log("Buscando Categorias")
+        this.props.buscarCategorias(this.props.tipoCategoria, this.props.descricao);
     }
 
     _limparCategoria() {

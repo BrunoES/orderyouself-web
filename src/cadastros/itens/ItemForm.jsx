@@ -17,7 +17,7 @@ class ItemForm extends Component {
 
     componentWillMount() {
         //this.props.buscarItens();
-        this.props.buscarCategorias(this.props.tipoCategoria);
+        this.props.buscarCategorias(this.props.tipoCategoria, '');
     }
 
     keyHandler(e) {
@@ -36,7 +36,7 @@ class ItemForm extends Component {
     }
 
     _buscarItens() {
-        console.log("Buscando Pratos")
+        this.props.buscarItens(this.props.categoriaId, this.props.tipoItem, this.props.descricao);
     }
 
     _limparPrato() {
