@@ -10,6 +10,7 @@ import CategoriaBebidas from '../cadastros/categorias/bebidas/CategoriaBebidas';
 import Prato from '../cadastros/itens/pratos/Prato';
 import Acompanhamento from '../cadastros/itens/acompanhamentos/Acompanhamento';
 import Bebida from '../cadastros/itens/bebidas/Bebida';
+import QRCodeMesa from '../cadastros/mesas/qrcodes/QRCodeMesa';
 
 export default props => (
     <div className='content-wrapper'>
@@ -21,6 +22,7 @@ export default props => (
             <Route path='/prato' component={Prato} />
             <Route path='/acompanhamento' component={Acompanhamento} />
             <Route path='/bebida' component={Bebida} />
+            <Route path='/mesaqrcode' component={QRCodeMesa} />
             <Redirect from='*' to='/' />
         </Switch>
     </div>

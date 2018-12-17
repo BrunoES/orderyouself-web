@@ -16,6 +16,9 @@ export default props => (
                 <MenuItem path='/acompanhamento' label='Acompanhamentos' icon='usd' />
                 <MenuItem path='/bebida' label='Bebidas' icon='usd' />
             </MenuTree>
+            <MenuTree label='Mesas' icon='edit'> 
+                <MenuItem path='/mesaqrcode' label='QRCodes das Mesas' icon='usd' />
+            </MenuTree>
         </MenuTree>
     </ul>
 );
