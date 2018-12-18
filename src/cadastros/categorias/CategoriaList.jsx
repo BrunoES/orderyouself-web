@@ -9,7 +9,7 @@ import _ from 'lodash';
 class CategoriaList extends Component {
 
     componentWillMount() {
-        this.props.buscarCategorias(this.props.tipoCategoria);
+        this.props.buscarCategorias(this.props.localId, this.props.tipoCategoria, '');
     }
 
     renderRows(data) {
@@ -52,13 +52,14 @@ class CategoriaList extends Component {
 
 const mapStateToProps = state => {
     const categorias = new Array();
+    const localId = state.app.localId;
 
     _.map(state.categoria.list, (val, uid) => {
         categorias.push(val);
         categorias[categorias.length - 1].uid = uid;
     });
 
-    return { categorias };
+    return { localId, categorias };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ buscarCategorias }, dispatch);

@@ -21,7 +21,7 @@ class ItemList extends Component {
     }
 
     _buscarItens(categoriaId) {
-        this.props.buscarItens(categoriaId, this.props.tipoItem);
+        this.props.buscarItens(this.props.localId, categoriaId, this.props.tipoItem, '');
     }
 
     renderRows(data) {
@@ -62,6 +62,7 @@ class ItemList extends Component {
 
 const mapStateToProps = state => {
     const categoriaId = state.item.categoriaId;
+    const localId = state.app.localId;
     const itens = new Array();
 
     _.map(state.item.list, (val, uid) => {
@@ -69,7 +70,7 @@ const mapStateToProps = state => {
         itens[itens.length - 1].uid = uid;
     });
 
-    return { categoriaId, itens };
+    return { localId, categoriaId, itens };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ buscarItens }, dispatch);

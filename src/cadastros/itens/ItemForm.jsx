@@ -17,14 +17,14 @@ class ItemForm extends Component {
 
     componentWillMount() {
         //this.props.buscarItens();
-        this.props.buscarCategorias(this.props.tipoCategoria, '');
+        this.props.buscarCategorias(this.props.localId, this.props.tipoCategoria, '');
     }
 
     keyHandler(e) {
     }
 
     _adicionarPrato() {
-        this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.categoriaId, this.props.tipoItem );
+        this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.localId, this.props.categoriaId, this.props.tipoItem );
     }
 
     _modificaDescricao(e) {
@@ -36,7 +36,7 @@ class ItemForm extends Component {
     }
 
     _buscarItens() {
-        this.props.buscarItens(this.props.categoriaId, this.props.tipoItem, this.props.descricao);
+        this.props.buscarItens(this.props.localId, this.props.categoriaId, this.props.tipoItem, this.props.descricao);
     }
 
     _limparPrato() {
@@ -80,8 +80,9 @@ const mapStateToProps = state => {
     const descricao = state.item.descricao;
     const categoriaId = state.item.categoriaId;
     const categorias = state.categoria.list;
+    const localId = state.app.localId;
 
-    return { descricao, categoriaId, categorias };
+    return { localId, descricao, categoriaId, categorias };
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({ adicionarPrato, modificaDescricao, modificaCategoria, buscarCategorias, buscarItens, limparPrato }, dispatch);

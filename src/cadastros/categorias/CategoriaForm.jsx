@@ -20,7 +20,7 @@ class CategoriaForm extends Component {
     }
 
     _adicionarCategoria() {
-        this.props.adicionarCategoria({ desc: this.props.descricao, id: 1 }, this.props.tipoCategoria);
+        this.props.adicionarCategoria({ desc: this.props.descricao, id: 1 }, this.props.localId, this.props.tipoCategoria);
     }
 
     _modificaDescricao(e) {
@@ -28,7 +28,7 @@ class CategoriaForm extends Component {
     }
 
     _buscarCategorias() {
-        this.props.buscarCategorias(this.props.tipoCategoria, this.props.descricao);
+        this.props.buscarCategorias(this.props.localId, this.props.tipoCategoria, this.props.descricao);
     }
 
     _limparCategoria() {
@@ -56,7 +56,8 @@ class CategoriaForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    descricao: state.categoria.descricao
+    descricao: state.categoria.descricao,
+    localId: state.app.localId
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ adicionarCategoria, modificaDescricao, buscarCategorias, limparCategoria }, dispatch);
