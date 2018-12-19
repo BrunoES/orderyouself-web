@@ -48,15 +48,6 @@ export const modificarCategoria = (categoria, categoriaId, localId, tipoCategori
     };
 }
 
-export const buscarCategorias = (localId, tipoCategoria, queryText) => {
-    return dispatch => {
-        firebase.database().ref(`/${tipoCategoria}/${localId}/`).orderByChild('desc').startAt(queryText).endAt(queryText + "\uf8ff")
-            .on("value", snapshot => {
-                dispatch({ type: 'LISTA_CATEGORIAS', payload: snapshot.val() });
-            });
-    };
-};
-
 export const deletarCategoria = (tipoCategoria, localId, categoriaId) => {
     return dispatch => {
         firebase.database().ref(`/${tipoCategoria}/${localId}/`).child(categoriaId).remove().
@@ -65,6 +56,15 @@ export const deletarCategoria = (tipoCategoria, localId, categoriaId) => {
             })
             .catch(function(error) {
                 dispatch({ type: 'ERRO_DELETAR_CATEGORIA', payload: error.message });
+            });
+    };
+};
+
+export const buscarCategorias = (localId, tipoCategoria, queryText) => {
+    return dispatch => {
+        firebase.database().ref(`/${tipoCategoria}/${localId}/`).orderByChild('desc').startAt(queryText).endAt(queryText + "\uf8ff")
+            .on("value", snapshot => {
+                dispatch({ type: 'LISTA_CATEGORIAS', payload: snapshot.val() });
             });
     };
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { buscarItens } from './ItemActions'
+import { buscarItens, modificaIdEmAlteracao, modificarDescricao, modificarCategoria, deletarItem} from './ItemActions'
 
 import _ from 'lodash';
 
@@ -24,6 +24,16 @@ class ItemList extends Component {
         this.props.buscarItens(this.props.localId, categoriaId, this.props.tipoItem, '');
     }
 
+    _modificarItem(item) {
+        this.props.modificaIdEmAlteracao(item.uid);
+        this.props.modificarDescricao(item.desc);
+        this.props.modificarCategoria(this.props.categoriaId); // Comida Japonesa - Provisoriamente
+        //this.props.modificarCategoria(item.categoriaId);
+    }
+    _deletarItem(itemId) {
+        this.props.deletarItem(this.props.tipoItem, this.props.localId, this.props.tipoCategoria, itemId);
+    }
+
     renderRows(data) {
         const list = data || []
         return list.map(item => (
@@ -31,6 +41,14 @@ class ItemList extends Component {
                 <td>{item.uid}</td>
                 <td>{item.desc}</td>
                 <td>{'Ativo'}</td>
+                <td>
+                    <button className='btn btn-warning' onClick={() => this._modificarItem(item)}>
+                        <i className='fa fa-pencil'></i>
+                    </button>
+                    <button className='btn btn-danger' onClick={() => this._deletarItem(item.uid)}>
+                        <i className='fa fa-trash-o'></i>
+                    </button>
+                </td>
             </tr>
         ))
     }
@@ -47,6 +65,7 @@ class ItemList extends Component {
                                     <th>UID</th>
                                     <th>Descrição</th>
                                     <th>Estado</th>
+                                    <th className='table-actions'>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,5 +92,5 @@ const mapStateToProps = state => {
     return { localId, categoriaId, itens };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ buscarItens }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ buscarItens, modificaIdEmAlteracao, modificarDescricao, modificarCategoria, deletarItem }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ItemList);
