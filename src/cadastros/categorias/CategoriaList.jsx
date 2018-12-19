@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { buscarCategorias } from './CategoriaActions'
+import { buscarCategorias, deletarCategoria, modificaIdEmAlteracao, modificarDescricao } from './CategoriaActions'
 
 import _ from 'lodash';
 
@@ -12,13 +12,29 @@ class CategoriaList extends Component {
         this.props.buscarCategorias(this.props.localId, this.props.tipoCategoria, '');
     }
 
+    _modificarCategoria(categoria) {
+        this.props.modificaIdEmAlteracao(categoria.uid);
+        this.props.modificarDescricao(categoria.desc);
+    }
+    _deletarCategoria(categoriaId) {
+        this.props.deletarCategoria(this.props.tipoCategoria, this.props.localId, categoriaId);
+    }
+
     renderRows(data) {
         const list = data || []
-        return list.map(item => (
-            <tr key={item.uid}>
-                <td>{item.uid}</td>
-                <td>{item.desc}</td>
+        return list.map(categoria => (
+            <tr key={categoria.uid}>
+                <td>{categoria.uid}</td>
+                <td>{categoria.desc}</td>
                 <td>{'Ativo'}</td>
+                <td>
+                    <button className='btn btn-warning' onClick={() => this._modificarCategoria(categoria)}>
+                        <i className='fa fa-pencil'></i>
+                    </button>
+                    <button className='btn btn-danger' onClick={() => this._deletarCategoria(categoria.uid)}>
+                        <i className='fa fa-trash-o'></i>
+                    </button>
+                </td>
             </tr>
         ))
     }
@@ -36,6 +52,7 @@ class CategoriaList extends Component {
                                     <th>UID</th>
                                     <th>Descrição</th>
                                     <th>Estado</th>
+                                    <th className='table-actions'>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,5 +79,5 @@ const mapStateToProps = state => {
     return { localId, categorias };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ buscarCategorias }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ buscarCategorias, deletarCategoria, modificaIdEmAlteracao, modificarDescricao }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriaList);

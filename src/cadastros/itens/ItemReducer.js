@@ -9,7 +9,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'LISTA_ITENS':
             return { ...state, list: action.payload };
         case 'ADICIONA_ITEM':
-            return { ...state, descricao: action.payload };
+            return { ...state, descricao: '' };
         default:
             return state;
     }

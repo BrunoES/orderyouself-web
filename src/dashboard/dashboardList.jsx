@@ -8,7 +8,7 @@ import _ from 'lodash';
 class dashboardList extends Component {
 
     componentWillMount() {
-        this.props.getListaDePedidos(this.props.currentUserUID);
+        this.props.getListaDePedidos(this.props.localId);
         //this.props.getPedidosFechados(this.props.currentUserUID);
         //this.props.getListRefeicoes(this.props.currentUserUID, prov);
         //this.props.getListAcompanhamentos(this.props.currentUserUID, prov);
@@ -87,7 +87,7 @@ const mapStateToProps = state => {
     const refeicoes = new Array();
     const acompanhamentos = new Array();
     const bebidas = new Array();
-    const currentUserUID = state.auth.currentUser.uid;
+    const localId = state.app.localId;
 
     _.map(state.dashboard.pedidosFechados, (val, uid) => {
         pedidosFechados.push(val);
@@ -117,7 +117,7 @@ const mapStateToProps = state => {
 
     //console.log(refeicoes);
 
-    return { refeicoes, acompanhamentos, bebidas, currentUserUID };
+    return { localId, refeicoes, acompanhamentos, bebidas };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({ getListaDePedidos, getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas }, dispatch)

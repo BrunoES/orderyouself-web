@@ -24,7 +24,11 @@ class ItemForm extends Component {
     }
 
     _adicionarPrato() {
-        this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.localId, this.props.categoriaId, this.props.tipoItem );
+        if(this.props.descricao !== '' && this.props.categoriaId !== '') {
+            this.props.adicionarPrato({ desc: this.props.descricao, id: 1 }, this.props.localId, this.props.categoriaId, this.props.tipoItem );
+        }else{
+            alert("Por favor, preencha o campo de Descrição e selecione uma Categoria.");
+        }
     }
 
     _modificaDescricao(e) {
@@ -40,7 +44,8 @@ class ItemForm extends Component {
     }
 
     _limparPrato() {
-        console.log("Limpando Prato")
+        this.props.modificaDescricao('');
+        this.props.modificaCategoria('');
     }
 
     _getOptionsFromCategorias() {
