@@ -65,18 +65,18 @@ export const getListBebidas = (localId, pedidoId) => {
 export const getListaDePedidos = (localId) => {
     return dispatch => {
         firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
-            .on("value", snapshot => {
+            .once("value", snapshot => {
                 _.map(snapshot.val(), (val, uid) => {
                     firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
-                        .on("value", snapshot => {
+                        .once("value", snapshot => {
                             dispatch({ type: 'LISTA_REFEICOES', payload: snapshot.val() });
                         })
                     firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
-                        .on("value", snapshot => {
+                        .once("value", snapshot => {
                             dispatch({ type: 'LISTA_ACOMPANHAMENTOS', payload: snapshot.val() });
                         })
                     firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
-                        .on("value", snapshot => {
+                        .once("value", snapshot => {
                             dispatch({ type: 'LISTA_BEBIDAS', payload: snapshot.val() });
                         })
                 });
