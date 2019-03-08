@@ -64,6 +64,7 @@ export const getListBebidas = (localId, pedidoId) => {
 
 export const getListaDePedidos = (localId) => {
     return dispatch => {
+        dispatch({ type: 'INIT_DASHBOARD', payload: '' });
         firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
             .once("value", snapshot => {
                 _.map(snapshot.val(), (val, uid) => {

@@ -7,6 +7,8 @@ let numItens = 0;
 
 export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case 'INIT_DASHBOARD':
+            return { ...state, numRefeicoes: 0, numAcompanhamentos: 0, numBebidas: 0, pedidosFechados: { }, refeicoes: [{ }], acompanhamentos: [{ }], bebidas: [{ }] };
         case 'NUM_PEDIDOS':
             return { ...state, numPedidos: action.payload.data };
         case 'PEDIDOS_FECHADOS':

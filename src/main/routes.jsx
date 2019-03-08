@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router'
 
-import Dashboard from '../dashboard/Dashboard'
+import Dashboard from '../dashboard/Dashboard';
+
+import ManutencaoDePedidos from '../manutencao/ManutencaoDePedidos';
 
 import CategoriaPratos from '../cadastros/categorias/pratos/CategoriaPratos';
 import CategoriaAcompanhamentos from '../cadastros/categorias/acompanhamentos/CategoriaAcompanhamentos';
@@ -16,6 +18,7 @@ export default props => (
     <div className='content-wrapper'>
         <Switch>
             <Route exact path='/' component={Dashboard} />
+            <Route path='/manutencaoDePedidos' component={ManutencaoDePedidos} />
             <Route path='/categoriaPratos' component={CategoriaPratos} />
             <Route path='/categoriaAcompanhamentos' component={CategoriaAcompanhamentos} />
             <Route path='/categoriaBebidas' component={CategoriaBebidas} />
