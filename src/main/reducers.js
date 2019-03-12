@@ -4,6 +4,7 @@ import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import AppReducer from './AppReducer';
 import DashboardReducer from '../dashboard/DashboardReducer';
+import ManutencaoDePedidosReducer from '../manutencao/ManutencaoDePedidosReducer';
 import TabReducer from '../common/tab/tabReducer';
 import AuthReducer from '../auth/AuthReducer';
 import ItemReducer from '../cadastros/itens/ItemReducer';
@@ -13,6 +14,7 @@ import QRCodeMesa from '../cadastros/mesas/qrcodes/QRCodeMesaReducer';
 const rootReducer = combineReducers({
     app: AppReducer,
     dashboard: DashboardReducer,
+    manutencaoDePedidos: ManutencaoDePedidosReducer,
     tab: TabReducer,
     form: formReducer,
     toastr: toastrReducer,

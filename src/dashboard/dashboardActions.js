@@ -85,6 +85,44 @@ export const getListaDePedidos = (localId) => {
     }
 }
 
+export const getListaDePedidosConsolidados = (localId) => {
+    let ArrayPayload = [ { pedidoId: "", itens: [{ }] } ];
+
+    return dispatch => {
+        dispatch({ type: 'INIT_DASHBOARD', payload: '' });
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
+            .once("value", snapshot => {
+                _.map(snapshot.val(), (val, uid) => {
+                    let tempPayload = { pedidoId: "", itens: [{ }] };
+
+                    firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            if(snapshot.val() != null) {
+                                tempPayload.itens.push(snapshot.val());
+                            }
+                        })
+                    firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            if(snapshot.val() != null) {
+                                tempPayload.itens.push(snapshot.val());
+                            }
+                        })
+                    firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            if(snapshot.val() != null) {
+                                tempPayload.itens.push(snapshot.val());
+                            }
+                        })
+                    if(tempPayload.itens.length > 0) {
+                        tempPayload.pedidoId = uid;
+                        ArrayPayload.push(tempPayload);
+                    }
+                });
+                dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: ArrayPayload });
+            });
+    }
+}
+
 export function create(values) {
     return submit(values, 'post')
 }
