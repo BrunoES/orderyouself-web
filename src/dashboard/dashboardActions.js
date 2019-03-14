@@ -86,42 +86,75 @@ export const getListaDePedidos = (localId) => {
 }
 
 export const getListaDePedidosConsolidados = (localId) => {
-    let ArrayPayload = [ { pedidoId: "", itens: [{ }] } ];
+    return dispatch => {
+
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
+            .once("value", snapshot => {
+                _.map(snapshot.val(), (val, uid) => {
+                    
+                    let tempPayload = { pedidoId: "", itens: {} };
+
+                    firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                    firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                    firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                });
+            });
+    }
+}
+
+/*
+export const getListaDePedidosConsolidados = (localId) => {
+    let ArrayPayload = [ { pedidoId: "", itens: [ {} ] } ];
 
     return dispatch => {
         dispatch({ type: 'INIT_DASHBOARD', payload: '' });
         firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
             .once("value", snapshot => {
                 _.map(snapshot.val(), (val, uid) => {
-                    let tempPayload = { pedidoId: "", itens: [{ }] };
+                    let tempPayload = { pedidoId: "", itens: [ {} ] };
 
                     firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
                         .once("value", snapshot => {
                             if(snapshot.val() != null) {
-                                tempPayload.itens.push(snapshot.val());
+                                tempPayload.itens.concat(_.values(snapshot.val()));
                             }
                         })
                     firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
                         .once("value", snapshot => {
                             if(snapshot.val() != null) {
-                                tempPayload.itens.push(snapshot.val());
+                                tempPayload.itens.concat(_.values(snapshot.val()));
                             }
                         })
                     firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
                         .once("value", snapshot => {
                             if(snapshot.val() != null) {
-                                tempPayload.itens.push(snapshot.val());
+                                tempPayload.itens.concat(_.values(snapshot.val()));
                             }
                         })
-                    if(tempPayload.itens.length > 0) {
-                        tempPayload.pedidoId = uid;
-                        ArrayPayload.push(tempPayload);
-                    }
+                    
+                    tempPayload.pedidoId = uid;
+                    ArrayPayload.push(tempPayload);
                 });
                 dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: ArrayPayload });
             });
     }
 }
+*/
 
 export function create(values) {
     return submit(values, 'post')

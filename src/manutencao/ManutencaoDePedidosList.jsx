@@ -20,44 +20,21 @@ class ManutencaoDePedidosList extends Component {
     }
     
     renderRows(data) {
-        //return <td><Pedido item={{pedidoId: "Pequeno Teste"}} /></td>
         let returnValue = [];
-
         if(data.length > 1) {
             for (var i = 1; i < data.length; i++) {
-                // Iterate over numeric indexes from 0 to 5, as everyone expects.
                 returnValue.push(
-                    <tr><Pedido item={data[i]}/></tr>
+                    <Pedido key={data[i].pedidoId} pedidoId={data[i].pedidoId} itens={data[i].itens}/>
                 );
             }
         }
         return returnValue;
-        /*
-        const list = data || []
-        if(list.length > 1) {
-            return list.map(item => (
-                <tr key={item.pedidoId}>
-                    <td><Pedido item={data}/></td>
-                </tr>
-            ))
-        }*/
     }
 
     render() {
         return (
             <div className='row'>
-                <div className='col-xs-2'>
-                    <table className='table'>
-                        <thead>
-                            <tr>
-                                <th>Pedidos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderRows(this.props.pedidosConsolidados)}
-                        </tbody>
-                    </table>
-                </div>
+                {this.renderRows(this.props.pedidosConsolidados)}
             </div>
         )
     }
@@ -66,8 +43,33 @@ class ManutencaoDePedidosList extends Component {
 const mapStateToProps = state => {
     let pedidosConsolidados;
     const localId = state.app.localId;
+    let arrayPedidosTemp = [ { pedidoId: "", itens: [] } ];
+    let arrayItensTemp = [];
+
+    let idAnterior = '';
 
     pedidosConsolidados = state.dashboard.pedidosConsolidados;
+
+    for (var i = 1; i < pedidosConsolidados.length; i++) {
+
+        if((idAnterior != pedidosConsolidados[i].pedidoId) && i > 1) {
+            arrayPedidosTemp.push(
+                {
+                    pedidoId: idAnterior,
+                    itens: arrayItensTemp
+                });
+            arrayItensTemp = [];
+        }
+
+        for (var j = 0; j < _.values(pedidosConsolidados[i].itens).length; j++) {
+            arrayItensTemp.push(_.values(pedidosConsolidados[i].itens)[j]);
+        }
+
+        idAnterior = pedidosConsolidados[i].pedidoId;
+    }
+
+    console.log(arrayPedidosTemp);
+    pedidosConsolidados = arrayPedidosTemp;
 
     return { localId, pedidosConsolidados };
 };
