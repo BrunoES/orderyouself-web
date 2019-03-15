@@ -1,0 +1,26 @@
+.pedidoBox {
+    /*box-shadow: 5px 10px 20px red inset;*/
+    margin-top: 10px;
+}
+
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+  } 
+
+.float {
+    float:left;
+    height:100px;
+    margin-left: 50px;
+    margin-top: 10px;
+    width: 300px;
+}
+
+.scrollDiv {
+    overflow-y: scroll;
+}

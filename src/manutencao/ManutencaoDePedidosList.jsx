@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getListaDePedidos, getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas, getListaDePedidosConsolidados } from '../dashboard/DashboardActions'
+import { getListaDePedidosConsolidados } from '../manutencao/ManutencaoDePedidosActions';
 
 import Pedido from './Pedido';
 
@@ -10,8 +10,6 @@ import _ from 'lodash';
 class ManutencaoDePedidosList extends Component {
 
     componentWillMount() {
-        //this.props.getListaDePedidos(this.props.localId);
-        //this.props.getPedidosFechados(this.props.localId);
         this.props.getListaDePedidosConsolidados(this.props.localId);
     }
 
@@ -24,7 +22,7 @@ class ManutencaoDePedidosList extends Component {
         if(data.length > 1) {
             for (var i = 1; i < data.length; i++) {
                 returnValue.push(
-                    <Pedido key={data[i].pedidoId} pedidoId={data[i].pedidoId} itens={data[i].itens}/>
+                    <Pedido key={data[i].pedidoId} pedidoId={data[i].pedidoId} numMesa={data[i].numMesa} itens={data[i].itens} />
                 );
             }
         }
@@ -45,10 +43,11 @@ const mapStateToProps = state => {
     const localId = state.app.localId;
     let arrayPedidosTemp = [ { pedidoId: "", itens: [] } ];
     let arrayItensTemp = [];
+    let numMesa = 0;
 
     let idAnterior = '';
 
-    pedidosConsolidados = state.dashboard.pedidosConsolidados;
+    pedidosConsolidados = state.manutencaoDePedidos.pedidosConsolidados;
 
     for (var i = 1; i < pedidosConsolidados.length; i++) {
 
@@ -56,6 +55,7 @@ const mapStateToProps = state => {
             arrayPedidosTemp.push(
                 {
                     pedidoId: idAnterior,
+                    numMesa: numMesa,
                     itens: arrayItensTemp
                 });
             arrayItensTemp = [];
@@ -66,13 +66,13 @@ const mapStateToProps = state => {
         }
 
         idAnterior = pedidosConsolidados[i].pedidoId;
+        numMesa = pedidosConsolidados[i].numMesa;
     }
 
-    console.log(arrayPedidosTemp);
     pedidosConsolidados = arrayPedidosTemp;
 
     return { localId, pedidosConsolidados };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getListaDePedidos, getPedidosFechados, getListRefeicoes, getListAcompanhamentos, getListBebidas, getListaDePedidosConsolidados }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getListaDePedidosConsolidados }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ManutencaoDePedidosList);

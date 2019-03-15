@@ -23,3 +23,38 @@ export const getPedidosEmAberto = (localId) => {
             })
     };
 }
+
+export const getListaDePedidosConsolidados = (localId) => {
+    return dispatch => {
+        dispatch({ type: 'INIT_CONSOLIDADO', payload: '' });
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/`).orderByChild('status').equalTo('confirmed')
+            .once("value", snapshot => {
+                _.map(snapshot.val(), (val, uid) => {
+                    
+                    let tempPayload = { pedidoId: "", numMesa: 0, itens: {} };
+
+                    firebase.database().ref(`/refeicoes/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.numMesa = val.mesa;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                    firebase.database().ref(`/acompanhamentosPedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.numMesa = val.mesa;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                    firebase.database().ref(`/bebidaspedido/${usuarioLogado}/${localId}/${uid}/`)
+                        .once("value", snapshot => {
+                            tempPayload.pedidoId = uid;
+                            tempPayload.numMesa = val.mesa;
+                            tempPayload.itens = snapshot.val();
+                            dispatch({ type: 'PEDIDO_CONSOLIDADO', payload: tempPayload });
+                        })
+                });
+            });
+    }
+}

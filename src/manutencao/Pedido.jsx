@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
-import Row from  '../common/layout/row';
+import { Button } from 'react-bootstrap';
+
+import Row from '../common/layout/row';
 
 import _ from 'lodash';
+
+import styles from './pedido.css';
 
 function ItensList(props) {
     const itens = props.itens;
@@ -13,42 +17,6 @@ function ItensList(props) {
     return (
       <ul>{listItems}</ul>
     );
-
-    /*
-    const teste1 = new Array();
-    teste1[0] = 1;
-    teste1[1] = 2;
-
-    const teste2 = new Array();
-    teste2[0] = { campo1: "1"};
-    teste2[1] = { campo2: "2"};
-    teste2[2] = { campo2: "3"};
-    teste2[3] = { campo2: "4"};
-
-    console.log(itens);
-    console.log(teste1);
-    console.log(teste2);
-    */
-
-    /*
-    let returnValue = [];
-    for (var i = 1; i < itens.length; i++) {
-        returnValue.push(
-            <li>{itens[i]}</li>
-        );
-    }
-    return <ul>{returnValue}</ul>
-    */
-
-    /*
-    const listItems = itens.map((item) =>
-            <li>{item.desc}</li>
-        );
-    return (
-      <ul>{listItems}</ul>
-    );*/
-
-    //return <li>{"Sem Itens"}</li>;
 }
 
 class Pedido extends Component {
@@ -65,12 +33,37 @@ class Pedido extends Component {
         //this.setState({value: event.target.value});
     }
 
+    finalizarPedido () {
+        alert("Finalizando Pedido");
+    }
+
+    cancelarPedido () {
+        alert("Cancelando Pedido");
+    }
+
+    excluirPedido () {
+        alert("Excluindo Pedido");
+    }
+
     render() {
         return (
             <div>
-                <Row>
-                    <input type="text" value={this.props.pedidoId} onChange={this.handleChange} />
-                    <ItensList itens={this.props.itens} />
+                <hr></hr>
+                <Row >
+                    <div>
+                        <div className={"float"}>
+                            <input type="text" value={" Pedido Nº " + this.props.pedidoId} onChange={this.handleChange} size="28" readOnly/>
+                            <input type="text" value={" Mesa " + this.props.numMesa} onChange={this.handleChange} size="28" readOnly/>
+                        </div>
+                        <div className={"float scrollDiv"}> 
+                            <ItensList itens={this.props.itens} />    
+                        </div>
+                        <div className={"float"}>
+                            <Button variant="success" onClick={this.finalizarPedido}>Finalizar</Button>
+                            <Button variant="danger" onClick={this.excluirPedido}>Excluir</Button>
+                            <Button variant="warning" onClick={this.cancelarPedido}>Cancelar</Button>
+                        </div>
+                    </div>
                 </Row>
             </div>
         );

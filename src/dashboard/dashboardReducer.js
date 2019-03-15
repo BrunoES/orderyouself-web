@@ -1,11 +1,9 @@
 import _ from 'lodash';
 
-    const INITIAL_STATE = { numRefeicoes: 0, numAcompanhamentos: 0, numBebidas: 0, pedidosFechados: { }, refeicoes: [{ }], acompanhamentos: [{ }], bebidas: [{ }], pedidosConsolidados: [ [{}] ] };
+    const INITIAL_STATE = { numRefeicoes: 0, numAcompanhamentos: 0, numBebidas: 0, pedidosFechados: { }, refeicoes: [{ }], acompanhamentos: [{ }], bebidas: [{ }] };
 
-let idTemp = 0;
 let itemTemp = new Array();
 let numItens = 0;
-let pedidoTemp = { pedidoId: "", itens: [] };
 
 export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -41,11 +39,6 @@ export default function(state = INITIAL_STATE, action) {
                 itemTemp.push(val);
             });
             return { ...state, bebidas: itemTemp, numBebidas: numItens };
-        case 'PEDIDO_CONSOLIDADO':
-            itemTemp = state.pedidosConsolidados.slice();
-            pedidoTemp = { pedidoId: action.payload.pedidoId, itens: action.payload.itens };
-            itemTemp.push(pedidoTemp);
-            return { ...state, pedidosConsolidados: itemTemp };
         default:
             return state;
     }
