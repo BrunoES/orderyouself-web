@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getListaDePedidosConsolidados } from '../manutencao/ManutencaoDePedidosActions';
 
+import Content from '../common/template/content';
+
 import Pedido from './Pedido';
 
 import _ from 'lodash';
@@ -31,9 +33,11 @@ class ManutencaoDePedidosList extends Component {
 
     render() {
         return (
-            <div className='row'>
-                {this.renderRows(this.props.pedidosConsolidados)}
-            </div>
+            <Content>
+                <div className='row'>
+                    {this.renderRows(this.props.pedidosConsolidados)}
+                </div>
+            </Content>
         )
     }
 }

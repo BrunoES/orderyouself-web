@@ -13,6 +13,12 @@ export default function(state = INITIAL_STATE, action) {
             return { ...state, pedidosEmAberto: action.payload };
         case 'LIMPA_PEDIDOS':
             return { ...state, pedidosEmAberto: [{ }] };
+        case 'DELETA_PEDIDO':
+            return { ...state };
+        case 'CANCELA_PEDIDO':
+            return { ...state };
+        case 'FINALIZA_PEDIDO':
+            return { ...state };
         case 'PEDIDO_CONSOLIDADO':
             itemTemp = state.pedidosConsolidados.slice();
             pedidoTemp = { pedidoId: action.payload.pedidoId, numMesa: action.payload.numMesa, itens: action.payload.itens };

@@ -24,6 +24,52 @@ export const getPedidosEmAberto = (localId) => {
     };
 }
 
+export const deletaPedido = (pedidoId, localId) => {
+    return dispatch => {
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/${pedidoId}/`)
+            .remove()
+            .then(() => dispatch({
+                type: 'DELETA_PEDIDO',
+                payload: ''
+            }))
+            .catch((erro) => dispatch({
+                type: 'DELETA_PEDIDO',
+                payload: ''
+            }))
+    };
+}
+
+export const cancelaPedido = (pedidoId, localId) => {
+    return dispatch => {
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/${pedidoId}/`)
+            .update({ 'status': 'canceled_by_admin' })
+            .then(() => dispatch({
+                type: 'CANCELA_PEDIDO',
+                payload: ''
+            }))
+            .catch((erro) => dispatch({
+                type: 'CANCELA_PEDIDO',
+                payload: ''
+            }))
+    };
+}
+
+export const finalizaPedido = (pedidoId, localId) => {
+    return dispatch => {
+        firebase.database().ref(`/pedidos/${usuarioLogado}/${localId}/${pedidoId}/`)
+            .update({ 'status': 'done' })
+            .then(() => dispatch({
+                type: 'CONFIRMA_PEDIDO',
+                payload: ''
+            }))
+            .catch((erro) => dispatch({
+                type: 'CONFIRMA_PEDIDO',
+                payload: ''
+            }))
+    };
+}
+
+
 export const getListaDePedidosConsolidados = (localId) => {
     return dispatch => {
         dispatch({ type: 'INIT_CONSOLIDADO', payload: '' });
