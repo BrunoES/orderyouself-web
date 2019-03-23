@@ -12,10 +12,15 @@ import _ from 'lodash';
 
 function ItensList(props) {
     const itens = props.itens;
-    
-    const listItems = itens.map((item) =>
-            <li key={item.desc}>{item.desc}</li>
-        );
+    let count = 0;
+
+    const listItems = itens.map((item) => {
+        count++;    
+        return (
+                <li key={count}>{`${item.quantidade}${" "}${item.desc}`}</li>
+            );
+        }
+    );
     return (
       <ul>{listItems}</ul>
     );
